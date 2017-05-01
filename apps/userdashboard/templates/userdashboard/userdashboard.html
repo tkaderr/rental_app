@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User Dashboard {{user.first_name}}</title>
+  </head>
+  <body>
+    <h1>Welcome {{user.first_name}}</h1>
+
+
+    <h4>Products that I am renting</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Image</th>
+          <th>Product Name</th>
+          <th>Product Tag</th>
+          <th>Product Price</th>
+          <th>Product Start Date</th>
+          <th>Product End Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rentals in rental %}
+        <tr>
+          <td>{{rentals.product.image}}</td>
+          <td>{{rentals.product.name}}</td>
+          <td>{{rentals.product.product_tag.name}}</td>
+          <td>{{rentals.product.price}}</td>
+          <td>{{rentals.rented_at_start}}</td>
+          <td>{{rentals.rented_at_end}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form class="" action="/add_to_rental/{{request.session.id}}" method="post">
+
+    </form>
+
+    <h4>Products that I own</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Image</th>
+          <th>Product Name</th>
+          <th>Product Tag</th>
+          <th>Product Price</th>
+          <th>Product Start Date</th>
+          <th>Product End Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for products in product %}
+        <tr>
+          <td>{{products.image}}</td>
+          <td>{{products.name}}</td>
+          <td>{{products.product_tag.name}}</td>
+          <td>{{products.price}}</td>
+          <td>{{products.product_rental.rented_at_start}}</td>
+          <td>{{products.product_rental.rented_at_end}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form class="" action="/addproduct" method="post">
+      <input type="submit" name="" value="Add Product">
+    </form>
+
+
+
+
+
+
+
+    <!-- <table>
+      <thead>
+        <tr>
+          <th>Product Image</th>
+          <th>Product Name</th>
+          <th>Product Tag</th>
+          <th>Product Price</th>
+          <th>Product Start Date</th>
+          <th>Product End Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for products in product %}
+        <tr>
+          <td>{{products.image}}</td>
+          <td>{{products.name}}</td>
+          <td>{{products.product_tag.name}}</td>
+          <td>{{products.price}}</td>
+          <td>{{products.product_rental.rented_at_start}}</td>
+          <td>{{products.product_rental.rented_at_end}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table> -->
+
+  </body>
+</html>

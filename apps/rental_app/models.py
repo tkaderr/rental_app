@@ -12,9 +12,9 @@ class User(models.Model):
 
 class Address(models.Model):
     address1=models.CharField(max_length=225)
-    address2=models.Charfield(max_length=225)
+    address2=models.CharField(max_length=225)
     city=models.CharField(max_length=225)
-    state=models.Charfield(max_length=225)
+    state=models.CharField(max_length=225)
     zipcode=models.IntegerField()
     user=models.OneToOneField(User, related_name="user_address")
 
@@ -28,7 +28,7 @@ class Product(models.Model):
     rental=models.ManyToManyField(User, through="Rental")
 
 class Tag(models.Model):
-    name=models.Charfield(max_length=225)
+    name=models.CharField(max_length=225)
     product=models.ManyToManyField(Product, related_name="product_tag")
 
 class Rental(models.Model):
