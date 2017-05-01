@@ -3,10 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>User Dashboard {{user.first_name}}</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <h1>Welcome {{user.first_name}}</h1>
 
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Settings
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="/edit_profile/">Edit Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
 
     <h4>Products that I am renting</h4>
     <table>
@@ -34,7 +51,7 @@
       </tbody>
     </table>
     <form class="" action="/add_to_rental/{{request.session.id}}" method="post">
-
+      <input type="submit" name="" value="Add Product">
     </form>
 
     <h4>Products that I own</h4>
@@ -62,7 +79,7 @@
         {% endfor %}
       </tbody>
     </table>
-    <form class="" action="/addproduct" method="post">
+    <form class="" action="/addproduct/{{request.session.id}}" method="post">
       <input type="submit" name="" value="Add Product">
     </form>
 
