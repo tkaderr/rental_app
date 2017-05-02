@@ -38,6 +38,7 @@ admin.site.register(Address, AddressAdmin)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('apps.home.urls')),
     url(r'^user/', include('apps.user_dashboard.urls')),
     url(r'^login/', include('apps.login.urls')),
     url(r'^item/', include('apps.item_view.urls')),
