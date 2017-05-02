@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from apps.add_item.models import Product, Tag, Rental
+from apps.add_item.models import Product, Tag, Rental, Category
 from apps.login.models import User, Address
 
 class UserAdmin(admin.ModelAdmin):
@@ -29,6 +29,9 @@ admin.site.register(Product, ProductAdmin)
 class TagAdmin(admin.ModelAdmin):
   pass
 admin.site.register(Tag, TagAdmin)
+class CategoryAdmin(admin.ModelAdmin):
+  pass
+admin.site.register(Category, CategoryAdmin)
 class RentalAdmin(admin.ModelAdmin):
   pass
 admin.site.register(Rental, RentalAdmin)
