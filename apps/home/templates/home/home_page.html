@@ -43,7 +43,7 @@
 
     <h2>All Products:</h2>
     {% for product in products %}
-    <p>{{product.image.url}}</p>
+    <p><img src="{{product.image.url}}" alt=""></p>
     <p>{{product.name}}</p>
     {% endfor %}
   </body>
