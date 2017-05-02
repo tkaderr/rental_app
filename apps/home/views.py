@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from ..add_item.models import Product
 
 # Create your views here.(
 def index(request):
@@ -6,13 +7,3 @@ def index(request):
         "products": Product.objects.all()
     }
     return render(request, 'home/home_page.html', context)
-
-
-def user_dashboard(request):
-    return redirect('/user_dashboard')
-
-def edit_profile(request):
-    return redirect('/edit_profile')
-
-def search(request):
-    pass

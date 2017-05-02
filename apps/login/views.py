@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 # Create your views here.
 
@@ -20,7 +20,7 @@ def register(request):
     warnings=User.objects.validate(data)
     if not warnings:
         request.session['current_user_id'] = User.objects.create(username=data['username'],first_name=data['first_name'],last_name=data['last_name'], email=data['email'],password=User.objects.hashPW(data)).id
-        return redirect(reverse('/user'))
+        return redirect(reverse('/'))
     else:
         for i in warnings:
             messages.error(request, i)
@@ -35,7 +35,7 @@ def login(request):
     warnings=User.objects.login(data)
     if not warnings:
         request.session['current_user_id'] = User.objects.get(username=data['username']).id
-        return redirect('/user')
+        return redirect('/')
     else:
         for i in warnings:
             messages.error(request,i)

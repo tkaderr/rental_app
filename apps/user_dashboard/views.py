@@ -4,7 +4,7 @@ from ..add_item.models import Product, Tag, Rental
 
 
 def index(request):
-    user = User.objects.get(id = request.session["id"])
+    user = User.objects.get(id = request.session["current_user_id"])
     rental = Rental.objects.filter(renter = user)
     product = Product.objects.filter(seller= user)
     context={
@@ -15,7 +15,7 @@ def index(request):
     return render(request, 'user_dashboard/dashboard.html', context)
 
 def edit_profile(request):
-    user=User.objects.get(id = request.session["id"])
+    user=User.objects.get(id = request.session["current_user_id"])
     context={
         "users": user
     }
@@ -28,7 +28,7 @@ def home_page(request):
     return redirect('/home/home_page')
 
 def edit_profile_process(request):
-    user=User.objects.get(id = request.session["id"])
+    user=User.objects.get(id = request.session["current_user_id"])
     check=User.objects.validate(request.POST)
     if check:
         for x in range(0, len(check)):
