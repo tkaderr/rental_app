@@ -3,5 +3,5 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class RentalAppConfig(AppConfig):
-    name = 'user_dashboard'
+class HomeConfig(AppConfig):
+    name = 'home'

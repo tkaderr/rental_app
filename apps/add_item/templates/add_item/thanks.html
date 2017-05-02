@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {%load staticfiles%}
+  </head>
+  <body>
+      Thanks!
+      {%for i in products%}
+          <img src="{{i.image.url}}" alt="">
+      {%endfor%}
+  </body>
+</html>
