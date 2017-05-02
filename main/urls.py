@@ -17,5 +17,6 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^user/', include('apps.user_dashboard.urls')),
-    url(r'^login/', include('apps.login.urls'))
+    url(r'^login/', include('apps.login.urls')),
+    url(r'^item/', include('apps.view_item.urls'))
 ]
