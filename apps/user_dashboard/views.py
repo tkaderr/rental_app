@@ -7,10 +7,14 @@ def index(request):
     user = User.objects.get(id = request.session["current_user_id"])
     rental = Rental.objects.filter(renter = user)
     product = Product.objects.filter(seller= user)
+    prod_rent=Rental.objects.filter(product=product)
+    print Product.objects.filter(rental = user)
+
     context={
         "users": user,
         "rentals": rental,
-        "products": product
+        "products": product,
+        "prod_rentals":prod_rent
     }
     return render(request, 'user_dashboard/dashboard.html', context)
 

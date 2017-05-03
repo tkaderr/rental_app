@@ -68,8 +68,8 @@ console.log(text);
           <a class="navbar-brand" href="#">Rental App</a>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">User Dashboard</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/user">User Dashboard</a></li>
           <!-- <li class="active"><a href="#">Product details</a></li> -->
           <!-- <li><a href="#">Page 3</a></li> -->
           </ul>
@@ -77,7 +77,7 @@ console.log(text);
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="/user_dashboard/edit_profile/{{user.id}}">Edit Profile</a></li>
+                <li><a href="/user/edit_profile">Edit Profile</a></li>
                 <li><a href="#">Messages <span class="badge">3</span></a></li>
                 <li><a href="/login/logout">Sign Out</a></li>
               </ul>
@@ -98,7 +98,6 @@ console.log(text);
     <div class="container">
       <h1>Product: {{item.name}}</h1>
       <p>Description: {{item.description}}</p>
-      <p>Price: {{item.price}}</p>
       <p>Owner: {{item.seller.first_name}}</p>
     </div>
       <div class="calendar"></div>

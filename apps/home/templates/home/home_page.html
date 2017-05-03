@@ -63,8 +63,8 @@
 
     <h2>All Products:</h2>
     {% for product in products %}
-    <p><img src="{% if product.image %}{{product.image.url}}{%endif%}" alt=""></p>
-    <p>{{product.name}}</p>
+    <p><img src="{% if product.image %}{{product.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></p>
+    <p><a href="/item/{{product.id}}">{{product.name}}</a></p>
     {% endfor %}
   </body>
 </html>
