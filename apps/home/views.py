@@ -4,7 +4,6 @@ from ..add_item.models import Product, Tag
 from datetime import datetime
 
 
-
 # Create your views here.(
 def index(request):
     # thirtyday=[]
@@ -22,6 +21,5 @@ def index(request):
         "products": Product.objects.all(),
         'tags': Tag.objects.all()
         # "30d_products": thirtyday
-
     }
     return render(request, 'home/home_page.html', context)
