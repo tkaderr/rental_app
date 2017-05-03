@@ -23,7 +23,7 @@
 			var $toolbar = $('<div></div>').appendTo(this.container);
 			$toolbar.addClass('availability-calendar-toolbar');
 
-			this.$monthLabel = $('<span></span>').appendTo($toolbar);
+			this.$monthLabel = $('<span class="month_label"></span>').appendTo($toolbar);
 			var $inputContainer = $('<span></span>').appendTo($toolbar);
 
 			$inputContainer.append('<input type="button" title="This month" value="This Month">');
@@ -199,7 +199,7 @@
 		});
 
 		this.each(function () {
-			new AvailabilityCalendar(this, dates);
+			cal = new AvailabilityCalendar(this, dates);
 		});
 
 		return this;

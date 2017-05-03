@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from add_item.models import Product
+from ..add_item.models import Product
 from django.shortcuts import render, redirect
 
 # Create your views here.

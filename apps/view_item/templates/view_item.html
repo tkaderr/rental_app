@@ -69,11 +69,37 @@
     <script src="availability-calendar.js"></script>
     <script type="text/javascript">
     var unavailableDates = [
-      {start: '2017-05-01', end: '2017-05-06'},
-      {start: '2017-05-10', end: '2017-05-14'},
-      {start: '2015-10-01', end: '2015-10-07'}
+      {start: '2017-05-23', end: '2017-05-25'},
+      {start: '2017-05-11', end: '2017-05-14'},
+      {start: '2017-05-16', end: '2017-05-20'}
     ];
+
+    var start = ""
     $('#calendar').availabilityCalendar(unavailableDates);
+    $(".availability-calendar tbody tr").on('click', 'td', function(){
+      var month = $(".month_label")[0].textContent.split(" ")[0]
+      var year = $(".month_label")[0].textContent.split(" ")[1]
+      var day = $(this)[0].textContent.toString()
+      if (month = "May") {
+        month = "05"
+      }
+      if (day.length ==1) {
+        day = "0"+day
+      }
+      date= year+"-"+month+"-"+day
+      if (!start) {
+        start=date
+      }
+      else {
+        unavailableDates.push({start:start, end:date})
+      }
+      console.log(date)
+      if ($(".month_label")[0].textContent)
+      console.log(unavailableDates)
+      console.log($(this)[0].textContent);
+      console.log($(".month_label")[0].textContent);
+      $('#calendar').availabilityCalendar(unavailableDates);
+    });
     </script>
 
   </body>
