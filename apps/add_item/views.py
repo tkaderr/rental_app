@@ -36,7 +36,7 @@ def add_item(request):
                 instance.tags.add(i)
             instance.categories.add(data['categories'][0])
             instance.save()
-            return redirect('/new_item/thanks')
+            return redirect('/user')
         else:
             print form.errors
             return render(request, 'add_item/form.html', {'form': form, 'products': Product.objects.all(), 'tags': Tag.objects.all()})
@@ -45,9 +45,9 @@ def add_item(request):
 
     return render(request, 'add_item/form.html', {'form': form, 'products': Product.objects.all(), 'tags': Tag.objects.all()})
 
-def thanks(request):
-    context= {
-    'user':request.user,
-    'products': Product.objects.all()
-    }
-    return render(request, 'add_item/thanks.html', context)
+# def thanks(request):
+#     context= {
+#     'user':request.user,
+#     'products': Product.objects.all()
+#     }
+#     return render(request, 'add_item/thanks.html', context)
