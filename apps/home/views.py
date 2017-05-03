@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from ..add_item.models import Product
+
+from ..add_item.models import Product, Tag
 import datetime
+
 
 # Create your views here.(
 def index(request):
@@ -14,6 +16,8 @@ def index(request):
 
     context = {
         "products": Product.objects.all(),
+        'tags': Tag.objects.all()
         "30d_products": thirtyday
+
     }
     return render(request, 'home/home_page.html', context)
