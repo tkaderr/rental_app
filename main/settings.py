@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'apps.login',
     'apps.home',
     'apps.user_dashboard',
-    'apps.item_view',
+    'apps.view_item',
     'apps.add_item',
     'django.contrib.admin',
     'django.contrib.auth',

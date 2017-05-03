@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Product Page</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static "js/jquery.latest.min.js" %}"></script>
+  	<script type="text/javascript" src="{% static "js/moment.latest.min.js" %}"></script>
+  	<script type="text/javascript" src="{% static "js/semantic.ui.min.js" %}"></script>
+  	<script type="text/javascript" src="{% static "js/prism.min.js" %}"></script>
+  	<script type="text/javascript" src="{% static "js/pignose.calendar.js" %}"></script>
+    <link type="text/css" href="{% static "/css/pignose.calendar.min.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/semantic.ui.min.css" %}">
+  	<link rel="stylesheet" type="text/css" href="{% static "css/prism.css" %}" />
+  	<link rel="stylesheet" type="text/css" href="{% static "css/calendar-style.css" %}" />
+  	<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
+  	<link rel="stylesheet" type="text/css" href="{% static "css/pignose.calendar.css" %}" />
+    <script type="text/javascript">
+    function onSelectHandler(date, context) {
+      var $element = context.element;
+var $calendar = context.calendar;
+var $box = $element.siblings('.box').show();
+var text = 'You chose ';
+
+if(date[0] !== null) {
+  text += date[0].format('YYYY-MM-DD');
+}
+
+if(date[0] !== null && date[1] !== null) {
+  text += ' ~ ';
+} else if(date[0] === null && date[1] == null) {
+  text += 'nothing';
+}
+
+if(date[1] !== null) {
+  text += date[1].format('YYYY-MM-DD');
+}
+
+console.log(text);
+}
+
+
+    $(function() {
+      var dates_arr=[]
+      {%for i in rentals%}dates_arr.push(['{{i.rented_at_start|date:"Y-m-d"}}','{{i.rented_at_end|date:"Y-m-d"}}'])
+      {%endfor%}
+      console.log(dates_arr)
+      $('.calendar').pignoseCalendar({
+        multiple: true,
+        select: onSelectHandler,
+        initialize: false,
+        disabledRanges: dates_arr
+        // [['2017-05-01','2017-05-02'],['2017-05-05','2017-05-010']]
+
+      });
+    })
+
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Rental App</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">User Dashboard</a></li>
+          <!-- <li class="active"><a href="#">Product details</a></li> -->
+          <!-- <li><a href="#">Page 3</a></li> -->
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/user_dashboard/edit_profile/{{user.id}}">Edit Profile</a></li>
+                <li><a href="#">Messages <span class="badge">3</span></a></li>
+                <li><a href="/login/logout">Sign Out</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </nav>
+    <div class="container">
+      <h1>Product: {{item.name}}</h1>
+      <p>Description: {{item.description}}</p>
+      <p>Price: {{item.price}}</p>
+      <p>Owner: {{item.seller.first_name}}</p>
+    </div>
+      <div class="calendar"></div>
+
+  </body>
+</html>
