@@ -80,13 +80,13 @@
           <th>User Renting</th>
           <th>Product Start Date</th>
           <th>Product End Date</th>
-          <th>action</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         {% for products in products %}
         <tr>
-          <td><img src="{{products.image.url}}" alt=""></td>
+          <td><img src="{% if products.image %}{{products.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></td>
           <td>{{products.name}}</td>
           <td>{{product.user_rental.first_name}}</td>
           <td>{{products.product_rental.rented_at_start}}</td>
@@ -100,5 +100,6 @@
     </table>
     <a href="/new_item/"><button type="button" class="btn btn-success" name="button">Add Item</button></a>
   </div>
+
   </body>
 </html>
