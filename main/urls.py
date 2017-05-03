@@ -44,11 +44,6 @@ urlpatterns = [
     url(r'^', include('apps.home.urls')),
     url(r'^user/', include('apps.user_dashboard.urls')),
     url(r'^login/', include('apps.login.urls')),
-<<<<<<< HEAD
     url(r'^item/', include('apps.item_view.urls')),
     url(r'^new_item/', include('apps.add_item.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
-    url(r'^new_item/', include('apps.add_item.urls'))
-]
->>>>>>> upstream/master

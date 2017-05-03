@@ -14,7 +14,7 @@ def index(request):
 
     context = {
         "products": Product.objects.all(),
-        'tags': Tag.objects.all()
+        'tags': Tag.objects.all(),
         "30d_products": thirtyday
     }
     return render(request, 'home/home_page.html', context)
