@@ -45,7 +45,7 @@
 <hr>
 <div class="container">
   <h1>Welcome {{users.first_name}}!</h1>
-    <h4>Products that I am renting</h4>
+    <h4>Products that I am renting:</h4>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
@@ -71,7 +71,7 @@
     </table>
 
 
-    <h4>Products that I own</h4>
+    <h4>Products that I own:</h4>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
@@ -80,16 +80,20 @@
           <th>User Renting</th>
           <th>Product Start Date</th>
           <th>Product End Date</th>
+          <th>action</th>
         </tr>
       </thead>
       <tbody>
-        {% for products in product %}
+        {% for products in products %}
         <tr>
-          <td>{{products.image}}</td>
+          <td><img src="{{products.image.url}}" alt=""></td>
           <td>{{products.name}}</td>
           <td>{{product.user_rental.first_name}}</td>
           <td>{{products.product_rental.rented_at_start}}</td>
           <td>{{products.product_rental.rented_at_end}}</td>
+          {% if not products.product_rental.rented_at_start %}
+          <td><a href="/user/delete/{{products.id}}">Delete Item</a></td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>

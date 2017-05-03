@@ -56,13 +56,14 @@
   </nav>
     <h2>Products Added in the past 30 days:</h2>
     {% for prods in 30d_products %}
-    <p><img src="{{prod.image.url}}" alt=""></p>
+    <p><img src="{{prods.image.url}}" alt=""></p>
     <p>{{prod.name}}</p>
     {% endfor %}
 
+
     <h2>All Products:</h2>
     {% for product in products %}
-    <p><img src="{% if product.image %}{{product.image.url}}{%endif%}" alt=""></p>
+    <!-- <p><img src="{% if product.image %}{{product.image.url}}{%endif%}" alt=""></p> -->
     <p><img src="{{product.image.url}}" alt=""></p>
     <p>{{product.name}}</p>
     {% endfor %}

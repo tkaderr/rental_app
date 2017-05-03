@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ..login.models import User, Address
 from ..add_item.models import Product, Tag, Rental
 
@@ -35,7 +35,12 @@ def edit_profile_process(request):
             messages.add_message(request, messages.INFO, check[x])
         return redirect ('/edit_profile')
     User.objects.filter(id=user.id).update(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
-    return redirect('/user_dashboard')
+    return redirect('/user')
+
+def delete_item(request, id):
+    prod=Product.objects.get(id=id)
+    prod.delete()
+    return redirect('/user')
 
 
 def logout(request):
