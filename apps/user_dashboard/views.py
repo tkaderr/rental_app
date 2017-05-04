@@ -1,26 +1,25 @@
 from django.shortcuts import render, redirect
 from ..login.models import User, Address
-from ..add_item.models import Product, Tag, Rental
+from ..add_item.models import Product, Tag, Rental, Message
 import datetime
 # from datetime import datetime
 
 
 def index(request):
-    # today=datetime.today()
-    # print today.year
+    today=datetime.date.today()
     user = User.objects.get(id = request.session["current_user_id"])
-    rental = Rental.objects.filter(renter = user)
     product = Product.objects.filter(seller= user)
-    curr_rental = Product.objects.filter(seller=user, product_rental__rented_at_end__gte=datetime.date(2017, 5, 3), product_rental__rented_at_start__lte=datetime.date(2017, 5, 3))
-    not_rental = Product.objects.filter(seller= user, rental = None) | Product.objects.filter(seller=user, product_rental__rented_at_end__lt = datetime.date(2017, 5, 3), product_rental__rented_at_start__gt =datetime.date(2017, 5, 3))
-    # message= Message.objects.filter(to_user=user)
+    not_rental = Product.objects.filter(seller= user, rental = None) | Product.objects.filter(seller=user, product_rental__rented_at_end__lt = datetime.date(today.year, today.month, today.day), product_rental__rented_at_start__gt =datetime.date(today.month, today.month, today.day))
+    message= Message.objects.filter(to_user=user)
+    curr_rental= Rental.objects.filter(product__seller=user, rented_at_end__gte=datetime.date(today.year, today.month, today.day), rented_at_start__lte=datetime.date(today.year, today.month, today.day))
+    rental= Rental.objects.filter(renter=user, rented_at_end__gte=datetime.date(today.year, today.month, today.day), rented_at_start__lte=datetime.date(today.year, today.month, today.day))
     context={
         "users": user,
         "rentals": rental,
         "products": product,
         "curr_rentals":curr_rental,
         "not_rentals":not_rental,
-        # "messages":message
+        "messages":message
         # "today":today
     }
     return render(request, 'user_dashboard/dashboard.html', context)
