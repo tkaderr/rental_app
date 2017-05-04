@@ -5,11 +5,13 @@ from ..add_item.models import Product, Tag, Rental
 
 def index(request):
     user = User.objects.get(id = request.session["current_user_id"])
-    rental = Rental.objects.filter(renter = user)
+    rentals = Rental.objects.filter(renter=user)
     product = Product.objects.filter(seller= user)
+    curr_rentals = Product.objects.filter(seller=user, rental__rented_at_end__gte=today)
+    print rentals[0]
     context={
         "users": user,
-        "rentals": rental,
+        "rentals": rentals,
         "products": product
     }
     return render(request, 'user_dashboard/dashboard.html', context)
