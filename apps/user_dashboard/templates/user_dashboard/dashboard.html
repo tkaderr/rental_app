@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>User Dashboard {{user.first_name}}</title>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script>
+<head>
+  <meta charset="utf-8">
+  <title>Home Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script>
 $( function() {
-var availableTags = [
-  {%for i in tags%}
-  "{{i.name}}",
-  {%endfor%}
-];
-$( "#search" ).autocomplete({
-  source: availableTags
-});
+  var availableTags = [
+    {%for i in tags%}
+    "{{i.name}}",
+    {%endfor%}
+  ];
+  $( "#search" ).autocomplete({
+    source: availableTags
+  });
 } );
 </script>
-  </head>
+{%load staticfiles%}
+</head>
   <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -37,9 +35,14 @@ $( "#search" ).autocomplete({
           <!-- <li><a href="#">Page 3</a></li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+              <ul class="dropdown-menu">
                 <li><a href="/user/edit_profile">Edit Profile</a></li>
+                <li><a href="#">Messages <span class="badge">3</span></a></li>
                 <li><a href="/login/logout">Sign Out</a></li>
-
+              </ul>
+            </li>
           </ul>
           <form action="/search" class="navbar-form navbar-right">
             <div class="input-group">
@@ -56,14 +59,14 @@ $( "#search" ).autocomplete({
 <hr>
 <div class="container">
   <h1>Welcome {{users.first_name}}!</h1>
+
     <h4>Products that I am renting:</h4>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
           <th>Product Image</th>
           <th>Product Name</th>
-          <th>Product Tag</th>
-          <th>Product Price</th>
+          <th>Product Seller</th>
           <th>Product Start Date</th>
           <th>Product End Date</th>
         </tr>
@@ -71,9 +74,9 @@ $( "#search" ).autocomplete({
       <tbody>
         {% for rentals in rentals %}
         <tr>
-          <td>{{rentals.product.image}}</td>
-          <td>{{rentals.product.name}}</td>
-          <td>{{rentals.seller.first_name}}</td>
+          <td><img src="{% if rentals.product.image.url %}{{rentals.product.image.url}}{%endif%}" height= "100px" width= "auto"></td>
+          <td><a href="/item/{{rentals.product.id}}">{{rentals.product.name}}</a></td>
+          <td>{{rentals.product.seller.first_name}}</td>
           <td>{{rentals.rented_at_start}}</td>
           <td>{{rentals.rented_at_end}}</td>
         </tr>
@@ -82,7 +85,7 @@ $( "#search" ).autocomplete({
     </table>
 
 
-    <h4>Products that I own:</h4>
+    <h4>Products that I own and being rented:</h4>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
@@ -91,17 +94,41 @@ $( "#search" ).autocomplete({
           <th>User Renting</th>
           <th>Product Start Date</th>
           <th>Product End Date</th>
-          <th>action</th>
         </tr>
       </thead>
       <tbody>
-        {% for products in products %}
+        {% for products in curr_rentals %}
         <tr>
-          <td><img src="{% if products.image %}{{products.image.url}}{%endif%}" height="80px" width="auto" alt=""></td>
-          <td>{{products.name}}</td>
-          <td>{{product.user_rental.first_name}}</td>
-          <td>{{products.product_rental.rented_at_start}}</td>
-          <td>{{products.product_rental.rented_at_end}}</td>
+          <td><img src="{% if products.image %}{{products.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></td>
+          <td><a href="/item/{{products.id}}">{{products.name}}</a></td>
+          {% for rent in products.product_rental.all %}
+          <td>{{rent.renter.first_name}}&nbsp;{{rent.renter.last_name}}</td>
+          <td>{{rent.rented_at_start}}</td>
+          <td>{{rent.rented_at_end}}</td>
+          {% endfor %}
+          <!-- <td>{{products.product_rental.all.renter.first_name}}</td> -->
+          <!-- <td>{{products.rental.rented_at_start}}</td>
+          <td>{{products.rental.rented_at_end}}</td> -->
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h4>Products that I own and not being rented:</h4>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Product Image</th>
+          <th>Product Name</th>
+
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for products in not_rentals %}
+        <tr>
+          <td><img src="{% if products.image %}{{products.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></td>
+          <td><a href="/item/{{products.id}}">{{products.name}}</a></td>
           {% if not products.product_rental.rented_at_start %}
           <td><a href="/user/delete/{{products.id}}">Delete Item</a></td>
           {% endif %}
@@ -110,6 +137,27 @@ $( "#search" ).autocomplete({
       </tbody>
     </table>
     <a href="/new_item/"><button type="button" class="btn btn-success" name="button">Add Item</button></a>
+
+    <h4>My Messages:</h4>
+    <!-- <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Message</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for message in messages %}
+        <tr>
+          <td>message.content</td>
+          <td><a href="/item/accept">Accept</a>&nbsp;<a href="/item/decline">Decline</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table> -->
+
   </div>
+
+
   </body>
 </html>

@@ -1,18 +1,27 @@
 from django.shortcuts import render, redirect
 from ..login.models import User, Address
 from ..add_item.models import Product, Tag, Rental
+import datetime
+# from datetime import datetime
 
 
 def index(request):
+    # today=datetime.today()
+    # print today.year
     user = User.objects.get(id = request.session["current_user_id"])
     rentals = Rental.objects.filter(renter=user)
     product = Product.objects.filter(seller= user)
-    curr_rentals = Product.objects.filter(seller=user, rental__rented_at_end__gte=today)
-    print rentals[0]
+    curr_rental = Product.objects.filter(seller=user, product_rental__rented_at_end__gte=datetime.date(2017, 5, 3), product_rental__rented_at_start__lte=datetime.date(2017, 5, 3))
+    not_rental = Product.objects.filter(seller= user, rental = None) | Product.objects.filter(seller=user, product_rental__rented_at_end__lt = datetime.date(2017, 5, 3), product_rental__rented_at_start__gt =datetime.date(2017, 5, 3))
+    # message= Message.objects.filter(to_user=user)
     context={
         "users": user,
-        "rentals": rentals,
-        "products": product
+        "rentals": rental,
+        "products": product,
+        "curr_rentals":curr_rental,
+        "not_rentals":not_rental,
+        # "messages":message
+        # "today":today
     }
     return render(request, 'user_dashboard/dashboard.html', context)
 
