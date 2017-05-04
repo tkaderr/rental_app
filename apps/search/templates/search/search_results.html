@@ -3,11 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>Home Page</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style type="text/css">
     @import "http://fonts.googleapis.com/css?family=Roboto:300,400,500,700";
 
@@ -20,7 +27,7 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
 
 .search-result .thumbnail { border-radius: 0 !important; }
 .search-result:first-child { margin-top: 0 !important; }
-.search-result { margin-top: 20px; border-bottom: 1px solid #ccc;}
+.search-result { margin-top: 20px; }
 .search-result .col-md-2 { border-right: 1px dotted #ccc; min-height: 140px; }
 .search-result ul { padding-left: 0 !important; list-style: none;  }
 .search-result ul li { font: 400 normal .85em "Roboto",Arial,Verdana,sans-serif;  line-height: 30px; }
@@ -36,6 +43,12 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
 .search-result span.border { display: block; width: 97%; margin: 0 15px; border-bottom: 1px dotted #ccc; }
     </style>
     <script>
+    bootcards.init({
+  offCanvasBackdrop: true,
+  offCanvasHideOnMainClick: true,
+  enableTabletPortraitMode: true,
+  disableRubberBanding: true
+});
   $( function() {
     var availableTags = [
       {%for i in tags%}
@@ -51,48 +64,42 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
   </head>
   <body>
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Rental App</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/user">User Dashboard</a></li>
-          <!-- <li class="active"><a href="#">Product details</a></li> -->
-          <!-- <li><a href="#">Page 3</a></li> -->
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/user/edit_profile">Edit Profile</a></li>
-                <li><a href="/user">Messages <span class="badge">{{user.message_to.count}}</span></a></li>
-                <li><a href="/login/logout">Sign Out</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search">
-              <div class="input-group-btn">
-                <button class="btn btn-default" type="submit">
-                  <i class="glyphicon glyphicon-search"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Rental App</a>
       </div>
-    </nav>
-    <!-- <h2>Products Added in the past 30 days:</h2>
-    {% for prods in 30d_products %}
-    <p><img src="{{prods.image.url}}" alt=""></p>
-    <p>{{prod.name}}</p>
-    {% endfor %} -->
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/user">User Dashboard</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+              <li><a href="/user/edit_profile">Edit Profile</a></li>
+              <li><a href="/login/logout">Sign Out</a></li>
 
-  <div class="container">
-      <h2>All Products:</h2>
+        </ul>
+        <form class="navbar-form navbar-right" action="/search">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control ui-autocomplete-input" id="id_q" placeholder="Search">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </nav>
+
+
+    <div class="container">
+
+        <hgroup class="mb20">
+    		<h1>Search Results</h1>
+    		<h2 class="lead"><strong class="text-danger">{{found_entries.count}}</strong> results were found for the search for <strong class="text-danger">{{query_string}}</strong></h2>
+    	</hgroup>
+
         <section class="col-xs-12 col-sm-6 col-md-12">
-        {%for i in products%}
+        {%for i in found_entries%}
     		<article class="search-result row">
     			<div class="col-xs-12 col-sm-12 col-md-3">
     				<a href="/item/{{i.id}}" title="Lorem ipsum" class="thumbnail"><img src="{%if i.image%}{{i.image.url}}{%endif%}" alt="Lorem ipsum" /></a>
@@ -110,6 +117,7 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
     			<span class="clearfix borda"></span>
     		</article>
         {%endfor%}
+
     	</section>
     </div>
   </body>

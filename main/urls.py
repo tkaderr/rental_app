@@ -48,5 +48,6 @@ urlpatterns = [
     url(r'^user/', include('apps.user_dashboard.urls')),
     url(r'^login/', include('apps.login.urls')),
     url(r'^item/', include('apps.view_item.urls')),
-    url(r'^new_item/', include('apps.add_item.urls'))
+    url(r'^new_item/', include('apps.add_item.urls')),
+    url(r'^search/', include('apps.search.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
