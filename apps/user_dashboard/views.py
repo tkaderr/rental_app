@@ -19,8 +19,7 @@ def index(request):
         "products": product,
         "curr_rentals":curr_rental,
         "not_rentals":not_rental,
-        "messages":message,
-        "today":today
+        "messages":message
     }
     return render(request, 'user_dashboard/dashboard.html', context)
 
