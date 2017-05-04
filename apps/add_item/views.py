@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 def add_item(request):
     if request.method == 'POST':
-        print request.POST['categories']
+        print "post"
         copied_post = request.POST.copy()
         tags= request.POST['tags'].split(',')
         obj_list=[]    #list of tag objects
