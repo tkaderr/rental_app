@@ -124,13 +124,12 @@ $( function() {
       </thead>
       <tbody>
         {% for products in not_rentals %}
-        <tr>
-          <td><img src="{% if products.image %}{{products.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></td>
-          <td><a href="/item/{{products.id}}">{{products.name}}</a></td>
-          {% if not products.product_rental.rented_at_start %}
-          <td><a href="/user/delete/{{products.id}}">Delete Item</a></td>
-          {% endif %}
-        </tr>
+
+              <tr>
+                <td><img src="{% if products.image %}{{products.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></td>
+                <td><a href="/item/{{products.id}}">{{products.name}} {{products.seller}} {%for i in products.product_rental.all%}{{i.rented_at_start}}{{i.rented_at_end}}{%endfor%}</a></td>
+                <td><a href="/user/delete/{{products.id}}">Delete Item</a></td>
+              </tr>
         {% endfor %}
       </tbody>
     </table>
