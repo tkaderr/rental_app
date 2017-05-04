@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from apps.add_item.models import Product, Tag, Rental, Category
+from apps.add_item.models import Product, Tag, Rental, Category, Message
 from apps.login.models import User, Address
 
 class UserAdmin(admin.ModelAdmin):
@@ -38,6 +38,9 @@ admin.site.register(Rental, RentalAdmin)
 class AddressAdmin(admin.ModelAdmin):
    pass
 admin.site.register(Address, AddressAdmin)
+class MessageAdmin(admin.ModelAdmin):
+   pass
+admin.site.register(Message, MessageAdmin)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

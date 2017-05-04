@@ -20,42 +20,45 @@
   	<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
   	<link rel="stylesheet" type="text/css" href="{% static "css/pignose.calendar.css" %}" />
     <script type="text/javascript">
+    var text;
     function onSelectHandler(date, context) {
       var $element = context.element;
-var $calendar = context.calendar;
-var $box = $element.siblings('.box').show();
-var text = 'You chose ';
+      var $calendar = context.calendar;
+      var $box = $element.siblings('.box').show();
+      text = [];
 
-if(date[0] !== null) {
-  text += date[0].format('YYYY-MM-DD');
-}
+      if(date[0] !== null) {
+        text.push(date[0].format('YYYY-MM-DD'));
+      }
 
-if(date[0] !== null && date[1] !== null) {
-  text += ' ~ ';
-} else if(date[0] === null && date[1] == null) {
-  text += 'nothing';
-}
+      // if(date[0] !== null && date[1] !== null) {
+      //   text += ' , ';
+      // } else if(date[0] === null && date[1] == null) {
+      //   text += 'nothing';
+      // }
 
-if(date[1] !== null) {
-  text += date[1].format('YYYY-MM-DD');
-}
+      if(date[1] !== null) {
+        text.push(date[1].format('YYYY-MM-DD'));
+      }
 
-console.log(text);
-}
+      console.log(text);
+      $('#dateapp').val(text)
+    }
+
+
 
 
     $(function() {
       var dates_arr=[]
-      {%for i in rentals%}dates_arr.push(['{{i.rented_at_start|date:"Y-m-d"}}','{{i.rented_at_end|date:"Y-m-d"}}'])
-      {%endfor%}
+      {% for i in rentals %}
+        dates_arr.push(['{{i.rented_at_start|date:"Y-m-d"}}','{{i.rented_at_end|date:"Y-m-d"}}'])
+      {% endfor %}
       console.log(dates_arr)
       $('.calendar').pignoseCalendar({
         multiple: true,
         select: onSelectHandler,
         initialize: false,
         disabledRanges: dates_arr
-        // [['2017-05-01','2017-05-02'],['2017-05-05','2017-05-010']]
-
       });
     })
 
@@ -78,7 +81,7 @@ console.log(text);
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="/user/edit_profile">Edit Profile</a></li>
-                <li><a href="#">Messages <span class="badge">3</span></a></li>
+                <li><a href="#">Messages <span class="badge">{{user.message_to.count}}</span></a></li>
                 <li><a href="/login/logout">Sign Out</a></li>
               </ul>
             </li>
@@ -100,7 +103,12 @@ console.log(text);
       <p>Description: {{item.description}}</p>
       <p>Owner: {{item.seller.first_name}}</p>
     </div>
-      <div class="calendar"></div>
 
+    <form class="dateapproval" action="/item/blockdate/{{item.id}}" method="post">
+      <div class="calendar"></div>
+        {% csrf_token %}
+        <input type="hidden" id ="dateapp" name="dateapp" value="">
+        <input type="submit" name="submit" value="Submit the dates for approval">
+      </form>
   </body>
 </html>

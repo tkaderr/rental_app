@@ -34,3 +34,11 @@ class Rental(models.Model):
     product=models.ForeignKey(Product, related_name="product_rental")
     rented_at_start=models.DateField()
     rented_at_end =models.DateField()
+    isapproved = models.BooleanField(default = False)
+
+class Message(models.Model):
+    content = models.TextField()
+    to_user = models.ForeignKey(User, related_name = "message_to")
+    from_user = models.ForeignKey(User, related_name = "message_from")
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
