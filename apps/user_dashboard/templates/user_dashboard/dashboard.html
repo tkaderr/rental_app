@@ -39,7 +39,7 @@ $( function() {
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="/user/edit_profile">Edit Profile</a></li>
-                <li><a href="#">Messages <span class="badge">3</span></a></li>
+                <li><a href="/user">Messages <span class="badge">{{users.message_to.count}}</span></a></li>
                 <li><a href="/login/logout">Sign Out</a></li>
               </ul>
             </li>
@@ -139,9 +139,10 @@ $( function() {
     <a href="/new_item/"><button type="button" class="btn btn-success" name="button">Add Item</button></a>
 
     <h4>My Messages:</h4>
-    <!-- <table class="table table-striped table-hover table-bordered">
+    <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
+          <th>Date</th>
           <th>Message</th>
           <th>Action</th>
         </tr>
@@ -149,13 +150,17 @@ $( function() {
       <tbody>
         {% for message in messages %}
         <tr>
-          <td>message.content</td>
-          <td><a href="/item/accept">Accept</a>&nbsp;<a href="/item/decline">Decline</a></td>
+          <td>{{message.created_at.date}}</td>
+          <td>{{message.content}}</td>
+          {% if message.is_request_message %}
+          <td><a href="/item/accept/{{message.id}}">Accept</a>&nbsp;/ <a href="/item/decline/{{message.id}}">Decline</a></td>
+          {% else %}
+          <td>None</td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>
-    </table> -->
-
+    </table>
   </div>
 
 

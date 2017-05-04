@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 from ..add_item.models import Product, Tag
+from ..login.models import User
 from datetime import datetime
 
 
@@ -18,6 +19,7 @@ def index(request):
     #         thirtyday.append(products)
 
     context = {
+        "user" : User.objects.get(id = request.session['current_user_id']),
         "products": Product.objects.all(),
         'tags': Tag.objects.all()
         # "30d_products": thirtyday

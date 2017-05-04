@@ -39,11 +39,11 @@ def add_item(request):
             return redirect('/user')
         else:
             print form.errors
-            return render(request, 'add_item/form.html', {'form': form, 'products': Product.objects.all(), 'tags': Tag.objects.all()})
+            return render(request, 'add_item/form.html', {'form': form, 'products': Product.objects.all(), 'tags': Tag.objects.all(), 'user' : User.objects.get(id=request.session['current_user_id'])})
     else:
         form = NewItemForm()
 
-    return render(request, 'add_item/form.html', {'form': form, 'products': Product.objects.all(), 'tags': Tag.objects.all()})
+    return render(request, 'add_item/form.html', {'form': form, 'products': Product.objects.all(), 'tags': Tag.objects.all(), 'user' : User.objects.get(id=request.session['current_user_id'])})
 
 # def thanks(request):
 #     context= {

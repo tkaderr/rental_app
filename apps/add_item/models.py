@@ -42,3 +42,5 @@ class Message(models.Model):
     from_user = models.ForeignKey(User, related_name = "message_from")
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+    rental = models.ForeignKey(Rental, related_name = "message")
+    is_request_message = models.BooleanField(default = False)
