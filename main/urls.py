@@ -22,7 +22,6 @@ from apps.login.models import User, Address
 
 class UserAdmin(admin.ModelAdmin):
   pass
-admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 class ProductAdmin(admin.ModelAdmin):
   pass
