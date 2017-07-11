@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from forms import NewItemForm
-from models import Product, User, Tag, Category
+from .forms import NewItemForm
+from .models import Product, User, Tag, Category
 
 from django.shortcuts import render, redirect
 

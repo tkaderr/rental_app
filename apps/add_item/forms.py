@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from models import Product,Category
+from .models import Product,Category
 
 CATEGORY_CHOICES = Category.objects.all()
 
