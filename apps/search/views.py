@@ -10,7 +10,7 @@ def search(request):
     query_string = ''
     found_entries = None
     if ('q' in request.GET) and request.GET['q'].strip():
-        print "query"
+        # print "query"
         query_string = request.GET['q']
 
         entry_query = get_query(query_string, ['name','description','tags__name'])

@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 def add_item(request):
     if request.method == 'POST':
-        print "post"
+        # print "post"
         copied_post = request.POST.copy()
         tags= request.POST['tags'].split(',')
         obj_list=[]    #list of tag objects
@@ -20,7 +20,7 @@ def add_item(request):
                 new_tags.append(i.strip())
         copied_post['tags']=obj_list
         copied_post['categories']=[Category.objects.get(id=request.POST['categories'])]
-        print copied_post['categories']
+        # print copied_post['categories']
         form = NewItemForm(copied_post, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
@@ -38,7 +38,7 @@ def add_item(request):
             instance.save()
             return redirect('/user')
         else:
-            print form.errors
+            # print form.errors
             return render(request, 'add_item/form.html', {'form': form, 'products': Product.objects.all(), 'tags': Tag.objects.all(), 'user' : User.objects.get(id=request.session['current_user_id'])})
     else:
         form = NewItemForm()

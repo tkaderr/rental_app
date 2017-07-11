@@ -52,7 +52,7 @@ def decline(request, id):
     content = "Your request to rent " + message.rental.product.name +"has been declined. Please try booking for some other day/product"
     rental = Rental.objects.get(id = message.rental.id)
     declined_msg = Message.objects.create(content = content, from_user = User.objects.get(id = request.session['current_user_id']), to_user = m_user, rental = rental, is_request_message = False)
-    print declined_msg
+    print(declined_msg)
     message.delete()
     rental.delete()
     return redirect('/user')
