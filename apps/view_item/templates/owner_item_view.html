@@ -57,8 +57,6 @@
       {% endfor %}
       console.log(dates_arr)
       $('.calendar').pignoseCalendar({
-        multiple: true,
-        select: onSelectHandler,
         initialize: false,
         disabledRanges: dates_arr
       });
@@ -113,17 +111,36 @@
       </div>
     </nav>
     <div class="container">
-      <img src="{{item.image.url}}" height="200px" width="auto" alt="">
+      <img src="{%if item.image %}{{item.image.url}}{%endif%}" height="200px" width="auto" alt="">
       <h1>{{item.name}}</h1>
       <p>Description: {{item.description}}</p>
-      <p>Owner: {{item.seller.first_name}}</p>
+      {% if rentals %}
+      <p>Upcoming Rentals for this item:</p>
+      <table class="table table-striped table-hover table-bordered">
+        <tr>
+          <th>renter</th>
+          <th>Checkout Date</th>
+          <th>Due Date</th>
+        </tr>
+        {%for i in item.product_rental.all%}
+        {%if i.isapproved %}
+          <tr>
+            <td>{{i.renter}}</td>
+            <td>{{i.rented_at_start}}</td>
+            <td>{{i.rented_at_end}}</td>
+          </tr>
+        {%endif%}
+        {%endfor%}
+      </table>
+      {%else%}
+      <p>No upcoming rentals!</p>
+      {%endif%}
     </div>
 
     <form class="dateapproval" action="/item/blockdate/{{item.id}}" method="post">
       <div class="calendar"></div>
         {% csrf_token %}
         <input type="hidden" id ="dateapp" name="dateapp" value="">
-        <input type="submit" class="centered"name="submit" value="Submit the dates for approval">
       </form>
   </body>
 </html>
