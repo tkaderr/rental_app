@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from models import User
+from .models import User
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse
 
