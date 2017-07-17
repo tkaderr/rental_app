@@ -20,30 +20,30 @@ from django.conf.urls.static import static
 from apps.add_item.models import Product, Tag, Rental, Category, Message
 from apps.login.models import User, Address
 
-class UserAdmin(admin.ModelAdmin):
-  pass
-admin.site.register(User, UserAdmin)
-class ProductAdmin(admin.ModelAdmin):
-  pass
-admin.site.register(Product, ProductAdmin)
-class TagAdmin(admin.ModelAdmin):
-  pass
-admin.site.register(Tag, TagAdmin)
-class CategoryAdmin(admin.ModelAdmin):
-  pass
-admin.site.register(Category, CategoryAdmin)
-class RentalAdmin(admin.ModelAdmin):
-  pass
-admin.site.register(Rental, RentalAdmin)
-class AddressAdmin(admin.ModelAdmin):
-   pass
-admin.site.register(Address, AddressAdmin)
-class MessageAdmin(admin.ModelAdmin):
-   pass
-admin.site.register(Message, MessageAdmin)
+# class UserAdmin(admin.ModelAdmin):
+#   pass
+# admin.site.register(User, UserAdmin)
+# class ProductAdmin(admin.ModelAdmin):
+#   pass
+# admin.site.register(Product, ProductAdmin)
+# class TagAdmin(admin.ModelAdmin):
+#   pass
+# admin.site.register(Tag, TagAdmin)
+# class CategoryAdmin(admin.ModelAdmin):
+#   pass
+# admin.site.register(Category, CategoryAdmin)
+# class RentalAdmin(admin.ModelAdmin):
+#   pass
+# admin.site.register(Rental, RentalAdmin)
+# class AddressAdmin(admin.ModelAdmin):
+#    pass
+# admin.site.register(Address, AddressAdmin)
+# class MessageAdmin(admin.ModelAdmin):
+#    pass
+# admin.site.register(Message, MessageAdmin)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
     url(r'^', include('apps.home.urls')),
     url(r'^user/', include('apps.user_dashboard.urls')),
     url(r'^login/', include('apps.login.urls')),
