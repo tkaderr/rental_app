@@ -5,3 +5,4 @@ staticfiles
 .env
 media/
 ./apps/view_item/static/css/semantic.ui.min.css
+Rental_App.mov

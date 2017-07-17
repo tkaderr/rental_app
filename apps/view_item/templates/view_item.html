@@ -119,7 +119,7 @@
       <p>Owner: {{item.seller.first_name}}</p>
     </div>
 
-    <form class="dateapproval" action="/item/blockdate/{{item.id}}" method="post">
+    <form class="dateapproval text-center" action="/item/blockdate/{{item.id}}" method="post">
       <div class="calendar"></div>
         {% csrf_token %}
         <input type="hidden" id ="dateapp" name="dateapp" value="">
