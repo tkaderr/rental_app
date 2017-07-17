@@ -83,8 +83,13 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
         </form>
       </div>
     </nav>
-    
-    <div class="container">
+    <!-- <h2>Products Added in the past 30 days:</h2>
+    {% for prods in 30d_products %}
+    <p><img src="{{prods.image.url}}" alt=""></p>
+    <p>{{prod.name}}</p>
+    {% endfor %} -->
+
+  <div class="container">
       <h2>All Products:</h2>
         <section class="col-xs-12 col-sm-6 col-md-12">
         {%for i in products%}
