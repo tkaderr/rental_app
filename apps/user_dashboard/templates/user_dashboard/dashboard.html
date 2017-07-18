@@ -74,7 +74,7 @@ $( function() {
       <tbody>
         {% for rentals in rentals %}
         <tr>
-          <td><img src="{% if rentals.product.image.url %}{{rentals.product.image.url}}{%endif%}" height= "100px" width= "auto"></td>
+          <td><img src="{% if rentals.product.imageURL %}{{rentals.product.imageURL}}{%endif%}" height= "100px" width= "auto"></td>
           <td><a href="/item/{{rentals.product.id}}">{{rentals.product.name}}</a></td>
           <td>{{rentals.product.seller.first_name}}&nbsp;{{rentals.product.seller.last_name}}</td>
           <td>{{rentals.rented_at_start}}</td>
@@ -99,7 +99,7 @@ $( function() {
       <tbody>
         {% for rental in curr_rentals %}
         <tr>
-          <td><img src="{% if rental.product.image %}{{rental.product.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></td>
+          <td><img src="{% if rental.product.imageURL %}{{rental.product.imageURL}}{%endif%}" alt="" height= "100px" width= "auto"></td>
           <td><a href="/item/{{rental.product.id}}">{{rental.product.name}}</a></td>
           <td>{{rental.renter.first_name}}&nbsp;{{rental.renter.last_name}}</td>
           <td>{{rental.rented_at_start}}</td>
@@ -125,7 +125,7 @@ $( function() {
       <tbody>
         {% for products in not_rentals %}
               <tr>
-                <td><img src="{% if products.image %}{{products.image.url}}{%endif%}" alt="" height= "100px" width= "auto"></td>
+                <td><img src="{% if products.imageURL %}{{products.imageURL}}{%endif%}" alt="" height= "100px" width= "auto"></td>
                 <td><a href="/item/{{products.id}}">{{products.name}}</a></td>
                 <td><a href="/user/delete/{{products.id}}">Delete Item</a></td>
               </tr>
