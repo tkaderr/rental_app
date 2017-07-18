@@ -15,7 +15,10 @@ def item(request, id):
     'rentals': Rental.objects.filter(product__id=id),
     "user" : User.objects.get(id = request.session['current_user_id'])
     }
-    return render(request, "view_item.html", context)
+    if context['item'].seller != context['user']:
+        return render(request, "view_item.html", context)
+    else:
+        return render(request, 'owner_item_view.html', context)
 
 def blockdate(request, id):
     user = User.objects.get(id = request.session['current_user_id'])
@@ -49,7 +52,7 @@ def decline(request, id):
     content = "Your request to rent " + message.rental.product.name +"has been declined. Please try booking for some other day/product"
     rental = Rental.objects.get(id = message.rental.id)
     declined_msg = Message.objects.create(content = content, from_user = User.objects.get(id = request.session['current_user_id']), to_user = m_user, rental = rental, is_request_message = False)
-    print declined_msg
+    print(declined_msg)
     message.delete()
     rental.delete()
     return redirect('/user')

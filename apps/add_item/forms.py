@@ -1,8 +1,8 @@
 from django.forms import ModelForm
 from django import forms
-from models import Product,Category
+from .models import Product,Category
 
-CATEGORY_CHOICES = Category.objects.all()
+# CATEGORY_CHOICES = Category.objects.all()
 
 class NewItemForm(ModelForm):
     class Meta:
@@ -18,7 +18,7 @@ class NewItemForm(ModelForm):
         widgets = {
         'name': forms.TextInput(attrs={'placeholder': 'Name', 'class':'form-control focusedInput'}),
         'tags': forms.Textarea(attrs={'id': 'tags', 'class':'form-control focusedInput', 'rows':'3'}),
-        'categories': forms.Select(choices=CATEGORY_CHOICES, attrs={'class':'form-control focusedInput'}),
+        # 'categories': forms.Select(choices=CATEGORY_CHOICES, attrs={'class':'form-control focusedInput'}),
         'description': forms.Textarea(attrs={'class':'form-control focusedInput', 'rows':'3'}),
         'image': forms.FileInput(attrs={'class':'form-control focusedInput image'}),
 
