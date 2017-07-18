@@ -95,7 +95,7 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
         {%for i in products%}
     		<article class="search-result row">
     			<div class="col-xs-12 col-sm-12 col-md-3">
-    				<a href="/item/{{i.id}}" title="Lorem ipsum" class="thumbnail"><img src="{%if i.image%}{{i.image.url}}{%endif%}" alt="Lorem ipsum" /></a>
+    				<a href="/item/{{i.id}}" title="Lorem ipsum" class="thumbnail"><img src="{%if i.imageURL%}{{i.imageURL}}{%endif%}" alt="Lorem ipsum" /></a>
     			</div>
     			<div class="col-xs-12 col-sm-12 col-md-2">
             <ul class="meta-search">

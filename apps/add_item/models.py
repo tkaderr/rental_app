@@ -20,6 +20,7 @@ class Product(models.Model):
     name=models.CharField(max_length=225)
     description=models.TextField(max_length=225)
     image=models.ImageField(upload_to='images',blank=True)
+    imageURL=models.CharField(max_length=225, blank=True)
     categories=models.ManyToManyField(Category, related_name="products_categories", blank=True)
     tags=models.ManyToManyField(Tag, related_name="products_tags", blank=True)
     created_at=models.DateTimeField(auto_now_add=True)

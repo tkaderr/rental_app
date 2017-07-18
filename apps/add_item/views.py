@@ -25,7 +25,7 @@ def add_item(request):
         if form.is_valid():
             data = form.cleaned_data
             user = User.objects.get(id=request.session['current_user_id'])
-            instance = Product(name=data['name'],description=data['description'],image=request.FILES['image'], seller=user)
+            instance = Product(name=data['name'],description=data['description'],imageURL=data['imageURL'], seller=user)
             # print tags
             instance.save()
             for i in new_tags:
